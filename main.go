@@ -12,12 +12,12 @@ import (
 func doSomethingWith(c *gosocketio.Client, wg *sync.WaitGroup) {
 	err := c.On("message", func(h *gosocketio.Channel, message string) {
 		log.Println(message)
+		wg.Done()
 	})
 
 	if err != nil {
 		log.Printf("error: %v", err)
-	}
-	wg.Done()
+	}	
 }
 
 func connect() (*gosocketio.Client, error) {
